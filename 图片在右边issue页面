@@ -1,0 +1,56 @@
+图片在右边issue页面
+
+
+买个服务器，选择debian 9系统（我买的vultr）。点我的链接进vultr官网，说不定我能拿点广告费嘿嘿嘿https://www.vultr.com/?ref=7808577 。
+
+得到xshell和xftp授权（https://www.netsarang.com/en/free-for-home-school/ ）， 得到授权后打开email下载xshell和xftp。
+
+在xshell新建服务器对话。将vultr后台的服务器IP和端口录入xshell。vultr端口默认是22.
+
+在xshell中连接vultr服务器。在第一次连接时，需要输入vultr服务器的用户名和密码。用户名默认为"root"，密码从vultr后台复制。
+
+如果连接不通，很可能是被墙了。destroy后换一个服务器即可。尽量选个冷门城市，分配到被墙ip的几率会小很多。
+
+完成以上步骤，准备工作就完成了，下面开始搭建v2ray。
+
+在xshell中给服务器重设时间。v2ray对时间的要求比较精确，服务器与电脑/手机的误差不能超过1分钟。所以要用xshell设置时间。
+
+查时间：
+date -R
+此处返回的时间为格林威治时间，换算为北京时间看看是否与电脑时间匹配。http://www.timebie.com/cn/greenwichmeanbeijing.php
+
+设置时间：
+date --set="201x-x-x 10:00:00"
+
+用xshell安装google的 TCP-BBR算法，给服务器加速。debian系统比较便捷，几行代码便可安装：
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
+sysctl net.ipv4.tcp_available_congestion_control
+
+返回如下代码，说明加速成功：
+
+
+最后一行代码，开启bbr：
+lsmod | grep bbr
+
+
+现在开始安装v2ray：
+bash <(curl -L -s https://install.direct/go.sh)
+
+安装成功后会返回端口信息和UUID。
+
+v2ray需要手动启动：
+sudo systemctl start v2ray
+
+如果返回错误提示“-bash: curl: command not found”，
+则先执行
+apt-get install sudo
+
+然后执行
+sudo systemctl start v2ray
+
+然后在v2ray客户端导入账号即可。
+
+
+完成
