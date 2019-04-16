@@ -1,11 +1,16 @@
 图片在右边issue页面
 
 
-买个服务器，选择debian 9系统（我买的vultr）。点我的链接进vultr官网，说不定我能拿点广告费嘿嘿嘿https://www.vultr.com/?ref=7808577 。
+1. 买个服务器。
+VPS 的虚拟架构主要分三种：OpenVZ、KVM、XEN。推荐的优先级：KVM>XEN>OpenVZ。
+KVM/XEN 相比 OpenVZ 来说，超售程度更小，且方便安装锐速、BBR 等优化。
+然后选择debian 9系统（我买的vultr）。
+点我的链接进vultr官网，说不定我能拿点广告费嘿嘿嘿https://www.vultr.com/?ref=7808577 。
 
-得到xshell和xftp授权（https://www.netsarang.com/en/free-for-home-school/ ）， 得到授权后打开email下载xshell和xftp。
+2. 再官网拿xshell和xftp授权，免费（https://www.netsarang.com/en/free-for-home-school/ ）， 然后通过email下载xshell和xftp。
 
-在xshell新建服务器对话。将vultr后台的服务器IP和端口录入xshell。vultr端口默认是22.
+
+3. 在xshell新建服务器对话。将vultr后台的服务器IP和端口录入xshell。vultr端口默认是22.
 
 在xshell中连接vultr服务器。在第一次连接时，需要输入vultr服务器的用户名和密码。用户名默认为"root"，密码从vultr后台复制。
 
@@ -13,7 +18,7 @@
 
 完成以上步骤，准备工作就完成了，下面开始搭建v2ray。
 
-在xshell中给服务器重设时间。v2ray对时间的要求比较精确，服务器与电脑/手机的误差不能超过1分钟。所以要用xshell设置时间。
+4. 在xshell中给服务器重设时间。v2ray对时间的要求比较精确，服务器与电脑/手机的误差不能超过1分钟。所以要用xshell设置时间。
 
 查时间：
 date -R
@@ -35,7 +40,7 @@ sysctl net.ipv4.tcp_available_congestion_control
 lsmod | grep bbr
 
 
-现在开始安装v2ray：
+5. 现在开始安装v2ray：
 bash <(curl -L -s https://install.direct/go.sh)
 
 安装成功后会返回端口信息和UUID。
